@@ -101,13 +101,13 @@ class Dictable():
 
 
 class ArchivingCard(Dictable):
-    title = 'Raw MRI and PET quality control (archiving)'
+    title = 'Raw MRI and PET quality control'
     command = 'archiving'
     subcommand = True
 
 
 class ASHSCard(Dictable):
-    title = 'Hippocampal subfield segmentation (ASHS)'
+    title = 'Hippocampal subfield volumetry (ASHS)'
     command = 'ashs'
     subcommand = True
 
@@ -125,7 +125,7 @@ class BamosCard(Dictable):
 
 
 class BasilCard(Dictable):
-    title = 'Bayesian Inference for Arterial Spin Labeling MRI'
+    title = '2D-ASL cerebral perfusion quantification (BASIL)'
     command = 'basil'
     subcommand = True
 
@@ -208,77 +208,60 @@ class SignatureCard(Dictable):
     title = 'Cortical AD signature (FreeSurfer v7.1)'
     command = 'signature'
     subcommand = True
-    desc = """FreeSurfer version 7.1 is used to determine the thickness of specific regions of interest (ROIs)
-            vulnerable to AD. The Jack's <i>AD signature</i> is calculated as the surface-area weighted average 
-            of the individual thickness and grayvol values of the following ROIs: entorhinal, inferior temporal, 
-            middle temporal and fusiform in both hemispheres. Not-weighted versions correspond to mean values 
-            across regions. Dickerson will return AD and aging signatures, based only on thickness values as 
-            they do not have any "grayvol" version."""
+    desc = """Cortical thickness and GM volume of specific ROIs vulnerable to AD are determined using FreeSurfer 
+            version 7.1. Jack's AD signature is calculated as the surface-area weighted average of individual 
+            thickness and GM volume values from the following ROIs: bilateral entorhinal, inferior temporal, middle 
+            temporal, and fusiform. Dickerson's AD and aging signatures are also computed, based solely on average 
+            thickness values in signature-specific ROIs."""
 
 
 class DONSURFCard(Dictable):
     title = 'Diffusion on cortical surface (DONSURF)'
     command = 'donsurf'
     subcommand = True
-    desc = """Surface-based analysis of Diffusion-weighted imaging data. The donsurf pipeline
-            performs all the required steps to obtain Mean Diffusivity (MD) maps on surface.
-            It also returns the partial volume corrected maps (PVC)."""
+    desc = """Surface Mean Diffusivity (MD) averages derived from DWI data and projected onto the cortical surface."""
 
 
 class PETFDGCard(Dictable):
-    title = 'Landau signatures from PET-FDG'
+    title = 'PET-FDG Glucose quantification'
     command = 'fdg'
     subcommand = True
     desc = """<b>FDG quantification pipeline steps</b>
 
-            1. Data fetching: given an XNAT PETSession, pulls a PET_FDG_4x5min scan image (NIfTI)
-            and a T1_ALFA1 scan image from a closer MRSession from the same subject.
-            2. Realignment of all PET image volumes (via SPM12 Realign)
-            3. Averaging of realigned PET images (via SPM12), saved as intermediate result file (static_pet.nii.gz)
-            4. Optimized (smoothed) version of the averaged PET (optimized_static_pet.nii)
-            5. Coregistration of averaged PET images and MRI T1w image to ICBM 152 atlas (via SPM12 Coregister)
-            6. Coregistration of resulting PET image to T1 space (via SPM12 Coregister)
-            7. Segmentation of T1 image (via SPM12 NewSegment), outputing the deformation fields and the GM-tissue image
-            8. Normalization of brain atlases to the T1w image space (via SPM12 Normalize).
-            9. Normalization of PET, T1 and GM-tissue images (via SPM12 Normalize).
-            10. Reslice normalized atlas images to the T1w voxel space (via SPM12).
-            11. Quantitative normalization:
-                    - global quantification: compute glucose SUVr measurement for sensitive regions (including brain cortex, 
-                    resilience signature ROI and Landau metaROIs) in the MNI space.
-                    - atlas-based regional quantification: compute ROI-specific SUVr measurements in the native space scaled by 
-                    5 reference regions using AAL atlas, Hammers atlas and the aparc+aseg FreeSurfer ROIs, i.e. Desikan-Killiany 
-                    (DK) cortical atlas parcellations plus subcortical segmentations. An additional landau AD-sensitive FDG Composite 
-                    ROI is included for quantification.
-            12. Results uploading into XNAT as FDG_QUANTIFICATION2 PETSession resource
-            13. Notification: When configured, notify via email the end-user(s)"""
+            1. Realignment of all PET image volumes (via SPM12 Realign)
+            2. Averaging of realigned PET images (via SPM12), saved as intermediate result file (static_pet.nii.gz)
+            3. Optimized (smoothed) version of the averaged PET (optimized_static_pet.nii)
+            4. Coregistration of averaged PET images and MRI T1w image to ICBM 152 atlas (via SPM12 Coregister)
+            5. Coregistration of resulting PET image to T1 space (via SPM12 Coregister)
+            6. Segmentation of T1 image (via SPM12 Segment), outputing the deformation fields and GM-tissue map
+            7. Normalization of brain atlases to the T1w image space (via SPM12 Normalize).
+            8. Normalization of PET, T1 and GM-tissue images (via SPM12 Normalize).
+            9. Reslicing normalized atlas images to the T1w voxel space (via SPM12).
+            10. Quantitative normalization:
+                - global quantification: compute glucose SUVr for sensitive regions in the MNI space.
+                - atlas-based regional quantification: ROI-specific SUVr measurements in the native space for the
+                  AAL, Hammers and Desikan-Killiany atlases."""
 
 
 class PETFTMCard(Dictable):
-    title = 'Centiloid scale from PET-FTM'
+    title = 'PET-FTM Amyloid quantification'
     command = 'ftm'
     subcommand = True
     desc = """<b>Centiloid pipeline steps</b>
 
-            1. Data fetching: given an XNAT PETSession, pulls a PET_Flutemetamol_4x5min (V1) or
-            a PETAC_Standard_recon2 (V2) scan image (NIfTI) and a T1_ALFA1 scan image from a closer 
-            MRSession from the same subject.
-            2. Realignment of all PET image volumes (via SPM12 Realign)
-            3. Averaging of realigned PET images (via SPM12), saved as intermediate result file (static_pet.nii.gz)
-            4. Optimized (smoothed) version of the averaged PET (optimized_static_pet.nii)
-            5. Coregistration of averaged PET images and MRI T1w image to ICBM 152 atlas (via SPM12 Coregister)
-            6. Coregistration of resulting PET images to T1 space (via SPM12 Coregister)
-            7. Segmentation of T1 image (via SPM12 NewSegment), outputing the deformation fields and the GM-tissue image
-            8. Normalization of brain atlases to the T1w image space (via SPM12 Normalize).
-            9. Normalization of PET, T1 and GM-tissue images (via SPM12 Normalize).
-            10. Reslice normalized atlas images to the T1w voxel space (via SPM12).
-            11. Quantitative normalization:
-                - global quantification: compute Centiloid and cortex SUVr measurements in the MNI space and scaled 
-                by 5 different reference regions.
-                - atlas-based regional quantification: compute ROI-specific SUVr measurements in the native space scaled 
-                by 4 reference regions using AAL atlas, Hammers atlas and the aparc+aseg FreeSurfer ROIs, 
-                i.e. Desikan-Killiany (DK) cortical atlas parcellations plus subcortical segmentations.
-            12. Results uploading into XNAT as FTM_QUANTIFICATION2 PETSession resource
-            13. Notification: When configured, notify via email the end-user(s)"""
+            1. Realignment of all PET image volumes (via SPM12 Realign)
+            2. Averaging of realigned PET images (via SPM12), saved as intermediate result file (static_pet.nii.gz)
+            3. Optimized (smoothed) version of the averaged PET (optimized_static_pet.nii)
+            4. Coregistration of averaged PET images and MRI T1w image to ICBM 152 atlas (via SPM12 Coregister)
+            5. Coregistration of resulting PET images to T1 space (via SPM12 Coregister)
+            6. Segmentation of T1 image (via SPM12 Segment), outputing the deformation fields and GM-tissue map
+            7. Normalization of brain atlases to the T1w image space (via SPM12 Normalize).
+            8. Normalization of PET, T1 and GM-tissue images (via SPM12 Normalize).
+            9. Reslicing normalized atlas images to the T1w voxel space (via SPM12).
+            10. Quantitative normalization:
+                - global quantification: compute Centiloid and cortical SUVr in the MNI space.
+                - atlas-based regional quantification: ROI-specific SUVr measurements in the native space for the  
+                    AAL, Hammers and Desikan-Killiany atlases."""
 
 
 class ScandateCard(Dictable):
@@ -287,24 +270,24 @@ class ScandateCard(Dictable):
 
 
 class BamosarterialCard(Dictable):
-    title = 'Quantification of WMH lesions per brain arterial territories'
+    title = 'White matter lesion quantification per brain arterial territories'
     command = 'bamosarterial'
     subcommand = True
 
 
 class DTIAlpsCard(Dictable):
-    title = 'DTI-ALPS Index'
+    title = 'DTI-ALPS index'
     command = 'alps'
     subcommand = True
 
 
 class ASL3DCard(Dictable):
-    title = '3D-ASL quantification'
+    title = '3D-ASL cerebral perfusion quantification'
     command = 'asl3d'
     subcommand = True
 
 
 class LcmodelCard(Dictable):
-    title = 'Quantification of MR Spectroscopy images (LCMODEL)'
+    title = 'Metabolite concentrations on MR Spectroscopy images (LCMODEL)'
     command = 'lcmodel'
     subcommand = True
