@@ -43,7 +43,7 @@ class Dictable():
         if subcommand not in (None, True):
             command += '_' + subcommand
         files = [op.basename(e) for e in all_bx
-                 if op.basename(e).startswith('bx_%s' % command)]
+                 if op.basename(e).startswith('bx_%s_' % command)]
 
         import pandas as pd
         from datetime import datetime
