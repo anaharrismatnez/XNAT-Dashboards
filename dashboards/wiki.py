@@ -291,3 +291,22 @@ class LcmodelCard(Dictable):
     title = 'Metabolite concentrations on MR Spectroscopy images (LCMODEL)'
     command = 'lcmodel'
     subcommand = True
+
+
+class CenTauRZCard(Dictable):
+    title = 'Tau-PET quantification using a standardized CenTauRZ scale.'
+    command = 'tau'
+    subcommand = True
+    desc = """<b>CenTauRZ</b>
+
+            This pipeline provides a dockerized implementation of the SPM12-based
+            CenTauR method from the GAAIN <a href="https://www.gaain.org/centaur-project">Centaur project</a>).
+            """
+    
+
+class PymentCard(Dictable):
+    title = 'PYMENT'
+    command = 'pyment'
+    subcommand = True
+    desc = """Automated brain age prediction from minimally preprocessed T1-weighted MRI data using pretrained 
+            deep learning models from <a href="https://github.com/estenhl/pyment-public">pyment-public</a> project."""
