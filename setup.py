@@ -11,7 +11,7 @@ long_description = 'This project is a responsive dashboard'\
 
 setuptools.setup(
      name='XNAT Dashboards',
-     version='0.3.0',
+     version='0.4',
      summary='XNAT data visualization',
      author='Mohammad Asif Hashmi',
      author_email='hashmi.masif@gmail.com',

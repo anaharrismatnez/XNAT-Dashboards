@@ -1,7 +1,8 @@
 ![main](https://github.com/XNAT-Dashboards/XNAT-Dashboards/actions/workflows/main.yml/badge.svg)
 [![Coverage Status](https://coveralls.io/repos/github/XNAT-Dashboards/XNAT-Dashboards/badge.svg?branch=master)](https://coveralls.io/github/XNAT-Dashboards/XNAT-Dashboards?branch=master)
 [![MIT License](https://img.shields.io/badge/License-MIT-brightgreen.svg)](https://github.com/XNAT-Dashboards/XNAT-Dashboards/blob/master/LICENSE)
-[![version](https://img.shields.io/badge/version-v0.3.0-brightgreen)](https://github.com/XNAT-Dashboards/XNAT-Dashboards/commits/master)
+[![python](https://img.shields.io/pypi/pyversions/XNAT-Dashboards.svg)](https://pypi.org/project/XNAT-Dashboards/)
+[![version](https://img.shields.io/pypi/v/XNAT-Dashboards.svg)](https://github.com/XNAT-Dashboards/XNAT-Dashboards/commits/master)
 
 # Dashboards for XNAT
 
