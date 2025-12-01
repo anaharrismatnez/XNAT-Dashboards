@@ -35,7 +35,8 @@ setuptools.setup(
           'Topic :: Scientific/Engineering',
           'Topic :: Utilities',
           'Topic :: Internet :: WWW/HTTP',
-          'Programming Language :: Python :: 3.6',
+          'Programming Language :: Python :: 3.10',
+          'Programming Language :: Python :: 3.11',
      ],
      install_requires=[
           'flask',
