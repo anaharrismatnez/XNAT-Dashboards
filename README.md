@@ -45,12 +45,12 @@ version was released at the end of the [Google Summer of Code 2020](https://summ
 
 Running the test suite requires the following:
 
-  - *python-nose* v1.2.1+
+  - *pytest* v7.1+
   - *coveralls*
 
 Run the tests with the following command:
 
-```nosetests xnat-dashboards/tests```
+```pytests xnat-dashboards/tests```
 
 
 ## Documentation
