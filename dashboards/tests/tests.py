@@ -11,17 +11,19 @@ import pickle
 import logging as log
 import tempfile
 
+fh, fp = tempfile.mkstemp(suffix='.pickle')
+log.info('Creating %s...' % fp)
+config.PICKLE_PATH = fp
+
+fp = op.join(op.dirname(dashboards.__file__), '..', 'config.json')
+config.DASHBOARD_CONFIG_PATH = fp
+
+fp = op.join(op.dirname(dashboards.__file__), '..', '.xnat.cfg')
+x = pyxnat.Interface(config=fp)
+
 
 def test_001_pickle_save():  # should be run first
-    fh, fp = tempfile.mkstemp(suffix='.pickle')
-    log.info('Creating %s...' % fp)
-    config.PICKLE_PATH = fp
 
-    fp = op.join(op.dirname(dashboards.__file__), '..', 'config.json')
-    config.DASHBOARD_CONFIG_PATH = fp
-    fp = op.join(op.dirname(dashboards.__file__), '..', '.xnat.cfg')
-
-    x = pyxnat.Interface(config=fp)
     pk.save(x, config.PICKLE_PATH)
     with open(config.PICKLE_PATH, 'rb') as handle:
         data = pickle.load(handle)
@@ -165,8 +167,8 @@ def test_025_get_project_view():
 
 def test_026_login():
     # Login route test
-    respone_get = app.test_client().get('/login/')
-    assert respone_get.status_code == 200
+    response_get = app.test_client().get('/login/')
+    assert response_get.status_code == 200
 
 
 def test_027_logout():
