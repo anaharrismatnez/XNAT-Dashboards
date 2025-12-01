@@ -1,10 +1,10 @@
 lxml>=4.6.3
-tqdm>=4.48
+tqdm>=4.66
 Flask>=2.0
 pyxnat>=1.6
 nibabel>=3.1
 pandas>=1.3
-requests>=2.26
+requests>=2.32.4
 openpyxl>=3.0
 #testing
 pytest>=7.1
