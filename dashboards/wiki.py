@@ -294,19 +294,18 @@ class LcmodelCard(Dictable):
 
 
 class CenTauRZCard(Dictable):
-    title = 'Tau-PET quantification using a standardized CenTauRZ scale.'
+    title = 'Tau-PET quantification (CenTauRz)'
     command = 'tau'
     subcommand = True
-    desc = """<b>CenTauRZ</b>
-
-            This pipeline provides a dockerized implementation of the SPM12-based
-            CenTauR method from the GAAIN <a href="https://www.gaain.org/centaur-project">Centaur project</a>).
+    desc = """Dockerized SPM12 implementation of the CenTauR method for tau-PET quantification, as defined by the 
+            GAAIN <a href="https://www.gaain.org/centaur-project">CenTauR project</a>. 
+            CenTauRz values are standardized tau-PET z-scores relative to a reference group on the CenTauR scale.
             """
     
 
 class PymentCard(Dictable):
-    title = 'PYMENT'
+    title = 'Brain Age (PYMENT)'
     command = 'pyment'
     subcommand = True
-    desc = """Automated brain age prediction from minimally preprocessed T1-weighted MRI data using pretrained 
-            deep learning models from <a href="https://github.com/estenhl/pyment-public">pyment-public</a> project."""
+    desc = """Automated brain-age prediction from minimally preprocessed T1-weighted MRI data using pretrained 
+            deep learning models from the <a href="https://github.com/estenhl/pyment-public">pyment-public</a> project"""
